@@ -1,14 +1,26 @@
 import subprocess
 import time
 import sys
+import zlib
+from zlib import decompressobj, MAX_WBITS
 
+
+#def myJob2(pipe_inpus):
+#  
 
 def myJob(fname, pipe_input):
+  bsize=1024*1024
   f=open(fname,'wb')
-  for b in ssh.stdout: f.write(b)
+  buffer=ssh.stdout.read(bsize)
+  while buffer:
+    f.write(buffer)
+    buffer=ssh.stdout.read(bsize)
   f.close()
 
-
+#p_output, p_input = Pipe()  #writer() writes to p_input from _this_ process
+#reader_p = Process(target=myJob, args=((p_output, p_input),))
+#reader_p.daemon = True
+#reader_p.start()     # Launch the reader process
 
 user=input('Enter username [admin]: ')
 if user=='': user='admin'
